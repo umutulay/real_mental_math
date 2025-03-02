@@ -1,51 +1,45 @@
+.index-page {
+    background-color: lightblue;
+}
+
+.quiz-page {
+    background-color: lightyellow;
+}
+
 body {
     font-family: Arial, sans-serif;
-    font-size: 1.2rem;      /* Relative font size */
     text-align: center;
     background-color: #f4f4f4;
-    padding: 2rem;          /* Increased padding */
-    margin: 0;
-    width: 100%;
+    padding: 20px;
 }
 
 header {
     background: #333;
     color: white;
-    padding: 1.5rem;        /* Adjust header padding */
-    width: 100%;
-    margin: 0 auto;
-}
-
-h1 {
-    font-size: 3rem;         /* Larger header text */
+    padding: 15px;
 }
 
 button {
-    padding: 1rem 2rem;      /* Larger padding */
-    font-size: 1.2rem;       /* Larger font size */
+    padding: 10px 20px;
+    font-size: 16px;
     background: #28a745;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 1rem;        /* Larger margin */
-    width: auto;             /* Flexible width */
-    border-radius: 0.5rem;   /* Rounded corners */
+    margin-top: 10px;
 }
 
 button:hover {
     background: #218838;
 }
 
-select {
-    padding: 1rem;            /* Larger padding */
-    font-size: 1.2rem;        /* Larger font size */
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;    /* Rounded corners */
-    margin-top: 1rem;         /* Larger margin */
+input {
+    padding: 10px;
+    font-size: 16px;
 }
 
-.index-page {
-    background-color: lightblue;
-    padding: 2rem;            /* Increased section padding */
-}
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
