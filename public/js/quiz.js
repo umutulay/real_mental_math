@@ -59,7 +59,7 @@ function generateQuestion() {
             break;
         case "division":
             generateDivisionQuestion();
-            return;
+            break;
     }
 
     document.getElementById("answer").value = ""; // Clear input
