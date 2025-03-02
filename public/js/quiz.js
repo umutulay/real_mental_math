@@ -41,11 +41,17 @@ function generateQuestion() {
     if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
 
     operation = getQuestionType();
+
+    if (operation === "mixed") {
+        const types = ["addition", "substraction", "multiplication", "division"];
+        operation = types[Math.floor(Math.random() * types.length)];
+    }
+
     switch (operation) {
         case "addition":
             generateAdditionQuestion();
             break;
-        case "subtraction":
+        case "substraction":
             generateSubstractionQuestion();
             break;
         case "multiplication":
@@ -53,11 +59,6 @@ function generateQuestion() {
             break;
         case "division":
             generateDivisionQuestion();
-            break;
-        case "mixed":
-            const types = ["addition", "subtraction", "multiplication", "division"];
-            localStorage.setItem("quizType", types[Math.floor(Math.random() * types.length)]);
-            generateQuestion(); // Call again with new operation
             return;
     }
 
