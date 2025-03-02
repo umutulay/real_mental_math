@@ -26,7 +26,7 @@ function generateMultiplicationQuestion() {
     num1 = Math.floor(Math.random() * 10) + 1;
     num2 = Math.floor(Math.random() * 10) + 1;
     correctAnswer = num1 * num2;
-    document.getElementById("question").textContent = `${num1} * ${num2}`;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
 
 function generateDivisionQuestion() {
