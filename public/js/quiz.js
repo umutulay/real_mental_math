@@ -1,12 +1,16 @@
 let num1, num2, correctAnswer;
-let timer;
+let timer, quizStartTime;
 const timeLimit = 10; // Time limit per question in seconds
+let correctAnswers = 0;
+let totalTimeSpent = 0;
 
 function getQuestionType() {
     return localStorage.getItem("quizType") || "addition"; // Default to addition
 }
 
 function generateQuestion() {
+    if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
+
     operation = getQuestionType();
     num1 = Math.floor(Math.random() * 10) + 1;
     num2 = Math.floor(Math.random() * 10) + 1;
@@ -25,7 +29,7 @@ function generateQuestion() {
             document.getElementById("question").textContent = `What is ${num1} × ${num2}?`;
             break;
         case "division":
-            num1 = num2 * Math.floor(Math.random() * 10) + 1; // Ensure divisibility
+            num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
             correctAnswer = num1 / num2;
             document.getElementById("question").textContent = `What is ${num1} ÷ ${num2}?`;
             break;
@@ -51,15 +55,16 @@ function checkAnswer() {
     if (userAnswer === correctAnswer) {
         document.getElementById("feedback").textContent = "✅ Correct!";
         document.getElementById("feedback").style.color = "green";
+        correctAnswers++; // Increase correct answer count
         clearTimeout(timer); // Stop timer
-        setTimeout(generateQuestion, 100); // Load new question after 50/1000 second
+        setTimeout(generateQuestion, 100); // Load new question after 100ms
     }
 }
 
 function startTimer() {
     let timeLeft = timeLimit;
     clearInterval(timer);
-    
+
     timer = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
@@ -75,9 +80,16 @@ function startTimer() {
 
 function endQuiz() {
     clearInterval(timer);
-    alert("Quiz Ended!");
-    window.location.href = "/results"; // Redirect to quiz page
 
+    // Calculate total time spent
+    totalTimeSpent = Math.floor((Date.now() - quizStartTime) / 1000); // Convert ms to seconds
+
+    // Store stats in localStorage
+    localStorage.setItem("correctAnswers", correctAnswers);
+    localStorage.setItem("totalTimeSpent", totalTimeSpent);
+
+    alert("Quiz Ended!");
+    window.location.href = "/results"; // Redirect to results page
 }
 
 // Listen for changes in input field (checks answer as user types)
