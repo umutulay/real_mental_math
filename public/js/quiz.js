@@ -49,10 +49,10 @@ function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
 
     if (userAnswer === correctAnswer) {
-        document.getElementById("feedback").textContent = "✅ Correct! Well done!";
+        document.getElementById("feedback").textContent = "✅ Correct!";
         document.getElementById("feedback").style.color = "green";
         clearTimeout(timer); // Stop timer
-        setTimeout(generateQuestion, 50); // Load new question after 50/1000 second
+        setTimeout(generateQuestion, 100); // Load new question after 50/1000 second
     }
 }
 
