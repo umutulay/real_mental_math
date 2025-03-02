@@ -12,6 +12,15 @@
     </header>
     <section>
         <p>Boost your mental math skills with fun exercises!</p>
+        <label for="quiz-type">Choose a type of math question:</label>
+        <select id="quiz-type">
+            <option value="addition">Addition</option>
+            <option value="subtraction">Subtraction</option>
+            <option value="multiplication">Multiplication</option>
+            <option value="division">Division</option>
+            <option value="mixed">Mixed (Random)</option>
+        </select>
+        <br><br>
         <button onclick="startQuiz()">Start Quiz</button>
     </section>
     <script src="/js/script.js"></script>

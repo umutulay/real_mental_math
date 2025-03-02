@@ -13,5 +13,10 @@ app.get("/quiz", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "quiz.html"));
 });
 
+
+app.get("/results", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "results.html"));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

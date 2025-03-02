@@ -1,6 +1,11 @@
 .index-page {
     background-color: lightblue;
 }
+
+.quiz-page {
+    background-color: lightyellow;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
