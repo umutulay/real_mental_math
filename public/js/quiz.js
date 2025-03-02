@@ -74,8 +74,8 @@ function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
 
     if (userAnswer === correctAnswer) {
-        document.getElementById("feedback").textContent = "✅ Correct!";
-        document.getElementById("feedback").style.color = "green";
+        // document.getElementById("feedback").textContent = "✅ Correct!";
+        // document.getElementById("feedback").style.color = "green";
         correctAnswers++; // Increase correct answer count
         clearTimeout(timer); // Stop timer
         setTimeout(generateQuestion, 100); // Load new question after 100ms
@@ -118,3 +118,7 @@ document.getElementById("answer").addEventListener("input", checkAnswer);
 
 // Initialize first question on page load
 window.onload = generateQuestion;
+
+function mainPage() {
+    window.location.href = "/";
+}
