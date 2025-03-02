@@ -37,3 +37,9 @@ input {
     padding: 10px;
     font-size: 16px;
 }
+
+p#question {
+  font-size: 24px;
+  line-height: 1.5;
+  padding: 10px;
+}
