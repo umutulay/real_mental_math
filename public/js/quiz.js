@@ -109,7 +109,7 @@ function endQuiz() {
     localStorage.setItem("correctAnswers", correctAnswers);
     localStorage.setItem("totalTimeSpent", totalTimeSpent);
 
-    alert("Quiz Ended!");
+    // alert("Quiz Ended!");
     window.location.href = "/results"; // Redirect to results page
 }
 
