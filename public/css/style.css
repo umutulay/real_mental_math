@@ -1,49 +1,51 @@
 body {
     font-family: Arial, sans-serif;
-    font-size: 1.2rem;  /* Make font size relative */
+    font-size: 1.2rem;      /* Relative font size */
     text-align: center;
     background-color: #f4f4f4;
-    padding: 20px;
+    padding: 2rem;          /* Increased padding */
+    margin: 0;
+    width: 100%;
 }
 
 header {
     background: #333;
     color: white;
-    padding: 15px;
-    width: 100%; /* Ensure header is responsive */
+    padding: 1.5rem;        /* Adjust header padding */
+    width: 100%;
     margin: 0 auto;
 }
 
 h1 {
-    font-size: 3rem; /* Use rem for font size */
+    font-size: 3rem;         /* Larger header text */
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 1rem 2rem;      /* Larger padding */
+    font-size: 1.2rem;       /* Larger font size */
     background: #28a745;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
-    width: auto; /* Make button size responsive */
+    margin-top: 1rem;        /* Larger margin */
+    width: auto;             /* Flexible width */
+    border-radius: 0.5rem;   /* Rounded corners */
 }
 
 button:hover {
     background: #218838;
 }
 
-input {
-    padding: 10px;
-    font-size: 16px;
+select {
+    padding: 1rem;            /* Larger padding */
+    font-size: 1.2rem;        /* Larger font size */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;    /* Rounded corners */
+    margin-top: 1rem;         /* Larger margin */
 }
 
 .index-page {
     background-color: lightblue;
-    padding: 20px;
-    width: 100%; /* Make sure it takes up full screen width */
-}
-
-.quiz-page {
-    background-color: lightyellow;
+    padding: 2rem;            /* Increased section padding */
 }
