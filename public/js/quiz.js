@@ -30,8 +30,8 @@ function generateMultiplicationQuestion() {
 }
 
 function generateDivisionQuestion() {
-    num2 = Math.floor(Math.random() * 101);
-    num1 = num2 * (Math.floor(Math.random() * 101)); // Ensure divisibility
+    num2 = Math.floor(Math.random() * 101) + 1;
+    num1 = num2 * (Math.floor(Math.random() * 101) + 1); // Ensure divisibility
     correctAnswer = num1 / num2;
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
