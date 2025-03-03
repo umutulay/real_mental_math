@@ -9,29 +9,29 @@ function getQuestionType() {
 }
 
 function generateAdditionQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
+    num1 = Math.floor(Math.random() * 101);
+    num2 = Math.floor(Math.random() * 101);
     correctAnswer = num1 + num2;
     document.getElementById("question").textContent = `${num1} + ${num2}`;
 }
 
 function generateSubstractionQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
+    num1 = Math.floor(Math.random() * 101);
+    num2 = Math.floor(Math.random() * 101);
     correctAnswer = num1 - num2;
     document.getElementById("question").textContent = `${num1} - ${num2}`;
 }
 
 function generateMultiplicationQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
+    num1 = Math.floor(Math.random() * 101);
+    num2 = Math.floor(Math.random() * 101);
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
 
 function generateDivisionQuestion() {
-    num2 = Math.floor(Math.random() * 10) + 1;
-    num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
+    num2 = Math.floor(Math.random() * 101);
+    num1 = num2 * (Math.floor(Math.random() * 101)); // Ensure divisibility
     correctAnswer = num1 / num2;
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
