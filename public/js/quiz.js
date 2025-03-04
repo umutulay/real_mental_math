@@ -79,7 +79,6 @@ function checkAnswer() {
         // document.getElementById("feedback").style.color = "green";
         correctAnswers++; // Increase correct answer count
         clearTimeout(timer); // Stop timer
-        timeLimit += 3; // Add 5 seconds to timer
         setTimeout(generateQuestion, 100); // Load new question after 100ms
     }
 }
