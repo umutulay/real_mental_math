@@ -1,4 +1,4 @@
-import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./operations/addition.js";
+import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "/js/operations/addition.js";
 import { generateSubtractionQuestion } from "/js/operations/subtraction.js";
 import { generateMultiplicationQuestion } from "/js/operations/multiplication.js";
 import { generateDivisionQuestion } from "/js/operations/division.js";
