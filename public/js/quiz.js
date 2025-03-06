@@ -52,18 +52,10 @@ function generateQuestion() {
 
     switch (operation) {
         case "addition":
-            if (difficulty === "easy") {
-                generateAdditionEasyQuestion();
-                break;
-            }
-            if (difficulty === "medium") {
-                generateAdditionMediumQuestion();
-                break;
-            }
-            if (difficulty === "hard") {
-                generateAdditionHardQuestion();
-                break;
-            }
+            if (difficulty === "easy") generateAdditionEasyQuestion();
+            else if (difficulty === "medium") generateAdditionMediumQuestion();
+            else if (difficulty === "hard") generateAdditionHardQuestion();
+            break
          case "substraction":
             generateSubstractionQuestion();
             break;
