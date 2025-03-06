@@ -1,55 +1,94 @@
-import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "/js/operations/addition.js";
-import { generateSubtractionQuestion } from "/js/operations/subtraction.js";
-import { generateMultiplicationQuestion } from "/js/operations/multiplication.js";
-import { generateDivisionQuestion } from "/js/operations/division.js";
-
-let correctAnswer;
+let num1, num2, correctAnswer;
 let timer, quizStartTime;
-const timeLimit = 10;
+const timeLimit = 10; // Time limit per question in seconds
 let correctAnswers = 0;
 let totalTimeSpent = 0;
 
 function getQuestionType() {
-    return localStorage.getItem("quizType") || "addition";
+    return localStorage.getItem("quizType") || "addition"; // Default to addition
 }
 
 function getDifficulty() {
-    return localStorage.getItem("difficulty") || "easy";
+    return localStorage.getItem("difficulty") || "easy"; // Default to easy
 }
 
-function generateQuestion() {
-    if (!quizStartTime) quizStartTime = Date.now();
+function generateAdditionEasyQuestion() {
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    num2 = Math.floor(Math.random() * 11);
+    correctAnswer = num1 + num2;
+    document.getElementById("question").textContent = `${num1} + ${num2}`;
+}
 
-    let operation = getQuestionType();
-    let difficulty = getDifficulty();
+function generateAdditionMediumQuestion() {
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    correctAnswer = num1 + num2;
+    document.getElementById("question").textContent = `${num1} + ${num2}`;
+}
+
+function generateAdditionHardQuestion() {
+    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 101);
+    correctAnswer = num1 + num2;
+    document.getElementById("question").textContent = `${num1} + ${num2}`;
+}
+
+function generateSubstractionQuestion() {
+    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 101);
+    correctAnswer = num1 - num2;
+    document.getElementById("question").textContent = `${num1} - ${num2}`;
+}
+
+function generateMultiplicationQuestion() {
+    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    correctAnswer = num1 * num2;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
+}
+
+function generateDivisionQuestion() {
+    num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
+    num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
+    correctAnswer = num1 / num2;
+    document.getElementById("question").textContent = `${num1} / ${num2}`;
+}
+
+
+function generateQuestion() {
+    if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
+
+    operation = getQuestionType();
+    difficulty = getDifficulty();
 
     if (operation === "mixed") {
-        const types = ["addition", "subtraction", "multiplication", "division"];
+        const types = ["addition", "substraction", "multiplication", "division"];
         operation = types[Math.floor(Math.random() * types.length)];
     }
 
     switch (operation) {
         case "addition":
-            if (difficulty === "easy") correctAnswer = generateAdditionEasyQuestion();
-            else if (difficulty === "medium") correctAnswer = generateAdditionMediumQuestion();
-            else if (difficulty === "hard") correctAnswer = generateAdditionHardQuestion();
+            if (difficulty === "easy") generateAdditionEasyQuestion();
+            else if (difficulty === "medium") generateAdditionMediumQuestion();
+            else if (difficulty === "hard") generateAdditionHardQuestion();
             break;
-        case "subtraction":
-            correctAnswer = generateSubtractionQuestion();
+        case "substraction":
+            generateSubstractionQuestion();
             break;
         case "multiplication":
-            correctAnswer = generateMultiplicationQuestion();
+            generateMultiplicationQuestion();
             break;
         case "division":
-            correctAnswer = generateDivisionQuestion();
+            generateDivisionQuestion();
             break;
     }
 
-    document.getElementById("answer").value = "";
-    document.getElementById("feedback").textContent = "";
+    document.getElementById("answer").value = ""; // Clear input
+    document.getElementById("feedback").textContent = ""; // Clear feedback
     document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
-    document.getElementById("answer").focus();
-    
+
+    document.getElementById("answer").focus(); // Auto-focus input field
+
     startTimer();
 }
 
@@ -57,9 +96,11 @@ function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
 
     if (userAnswer === correctAnswer) {
-        correctAnswers++;
-        clearTimeout(timer);
-        setTimeout(generateQuestion, 100);
+        // document.getElementById("feedback").textContent = "✅ Correct!";
+        // document.getElementById("feedback").style.color = "green";
+        correctAnswers++; // Increase correct answer count
+        clearTimeout(timer); // Stop timer
+        setTimeout(generateQuestion, 100); // Load new question after 100ms
     }
 }
 
@@ -82,13 +123,22 @@ function startTimer() {
 
 function endQuiz() {
     clearInterval(timer);
-    totalTimeSpent = Math.floor((Date.now() - quizStartTime) / 1000);
+
+    // Calculate total time spent
+    totalTimeSpent = Math.floor((Date.now() - quizStartTime) / 1000); // Convert ms to seconds
+
+    // Store stats in localStorage
     localStorage.setItem("correctAnswers", correctAnswers);
     localStorage.setItem("totalTimeSpent", totalTimeSpent);
-    window.location.href = "/results";
+
+    // alert("Quiz Ended!");
+    window.location.href = "/results"; // Redirect to results page
 }
 
+// Listen for changes in input field (checks answer as user types)
 document.getElementById("answer").addEventListener("input", checkAnswer);
+
+// Initialize first question on page load
 window.onload = generateQuestion;
 
 function mainPage() {
