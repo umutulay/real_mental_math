@@ -54,9 +54,23 @@ function generateSubstractionHardQuestion() {
     document.getElementById("question").textContent = `${num1} - ${num2}`;
 }
 
-function generateMultiplicationQuestion() {
+function generateMultiplicationEasyQuestion() {
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    correctAnswer = num1 * num2;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
+}
+
+function generateMultiplicationMediumQuestion() {
     num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
     num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    correctAnswer = num1 * num2;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
+}
+
+function generateMultiplicationHardQuestion() {
+    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 10
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
@@ -92,7 +106,9 @@ function generateQuestion() {
             else if (difficulty === "hard") generateSubstractionHardQuestion();
             break;
         case "multiplication":
-            generateMultiplicationQuestion();
+            if (difficulty === "easy") generateMultiplicationEasyQuestion();
+            else if (difficulty === "medium") generateMultiplicationMediumQuestion();
+            else if (difficulty === "hard") generateMultiplicationHardQuestion();
             break;
         case "division":
             generateDivisionQuestion();
