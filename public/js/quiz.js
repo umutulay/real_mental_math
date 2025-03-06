@@ -34,7 +34,7 @@ function generateAdditionHardQuestion() {
 }
 
 function generateSubtractionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 100
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
     num2 = Math.floor(Math.random() * 11);
     correctAnswer = num1 - num2;
     document.getElementById("question").textContent = `${num1} - ${num2}`;
@@ -55,7 +55,7 @@ function generateSubtractionHardQuestion() {
 }
 
 function generateMultiplicationEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 100
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
     num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
@@ -70,12 +70,26 @@ function generateMultiplicationMediumQuestion() {
 
 function generateMultiplicationHardQuestion() {
     num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 10
+    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
 
-function generateDivisionQuestion() {
+function generateDivisionEasyQuestion() {
+    num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
+    num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
+    correctAnswer = num1 / num2;
+    document.getElementById("question").textContent = `${num1} / ${num2}`;
+}
+
+function generateDivisionMediumQuestion() {
+    num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
+    num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
+    correctAnswer = num1 / num2;
+    document.getElementById("question").textContent = `${num1} / ${num2}`;
+}
+
+function generateDivisionHardQuestion() {
     num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
     num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
     correctAnswer = num1 / num2;
@@ -111,7 +125,9 @@ function generateQuestion() {
             else if (difficulty === "hard") generateMultiplicationHardQuestion();
             break;
         case "division":
-            generateDivisionQuestion();
+            if (difficulty === "easy") generateDivisionEasyQuestion();
+            else if (difficulty === "medium") generateDivisionMediumQuestion();
+            else if (difficulty === "hard") generateDivisionHardQuestion();
             break;
     }
 
