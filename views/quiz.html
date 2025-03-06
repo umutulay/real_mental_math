@@ -10,15 +10,24 @@
     <header>
         <h1>Math Quiz</h1>
     </header>
-    <section>
-        <p id="question"></p>
-        <p id="timer"></p>
-        <input type="number" id="answer" placeholder="Your answer">
-        <p id="feedback"></p>
+    <section class="quiz-container">
+        <div class="question-container">
+            <p id="question" class="question"></p>
+            <p id="timer" class="timer"></p>
+        </div>
+        <div class="answer-container">
+            <input type="number" id="answer" placeholder="Your answer" autocomplete="off">
+            <p id="feedback" class="feedback"></p>
+        </div>
+        <div class="progress-container">
+            <p id="progress">Question <span id="current-question">1</span> of <span id="total-questions">10</span></p>
+            <p id="score">Score: <span id="correct-count">0</span></p>
+        </div>
+        <div class="button-container">
+            <button onclick="mainPage()">Main Page</button>
+            <button onclick="endQuiz()">End Quiz</button>
+        </div>
     </section>
-    <button onclick="mainPage()">Main Page</button>
-    <button onclick="endQuiz()">End Quiz</button>
     <script type="module" src="/js/quiz.js"></script>
 </body>
 </html>
-
