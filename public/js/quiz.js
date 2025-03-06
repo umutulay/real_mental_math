@@ -33,7 +33,21 @@ function generateAdditionHardQuestion() {
     document.getElementById("question").textContent = `${num1} + ${num2}`;
 }
 
-function generateSubstractionQuestion() {
+function generateSubstractionEasyQuestion() {
+    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 11);
+    correctAnswer = num1 - num2;
+    document.getElementById("question").textContent = `${num1} - ${num2}`;
+}
+
+function generateSubstractionMediumQuestion() {
+    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
+    num2 = Math.floor(Math.random() * 11);
+    correctAnswer = num1 - num2;
+    document.getElementById("question").textContent = `${num1} - ${num2}`;
+}
+
+function generateSubstractionHardQuestion() {
     num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
     num2 = Math.floor(Math.random() * 101);
     correctAnswer = num1 - num2;
@@ -73,7 +87,9 @@ function generateQuestion() {
             else if (difficulty === "hard") generateAdditionHardQuestion();
             break;
         case "substraction":
-            generateSubstractionQuestion();
+            if (difficulty === "easy") generateSubstractionEasyQuestion();
+            else if (difficulty === "medium") generateSubstractionMediumQuestion();
+            else if (difficulty === "hard") generateSubstractionHardQuestion();
             break;
         case "multiplication":
             generateMultiplicationQuestion();
