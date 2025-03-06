@@ -1,5 +1,5 @@
 import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./operations/addition.js";
-import { generateSubstractionQuestion } from "./operations/substraction.js";
+import { generateSubstractionQuestion } from "./operations/subtraction.js";
 import { generateMultiplicationQuestion } from "./operations/multiplication.js";
 import { generateDivisionQuestion } from "./operations/division.js";
 
@@ -24,7 +24,7 @@ function generateQuestion() {
     difficulty = getDifficulty();
 
     if (operation === "mixed") {
-        const types = ["addition", "substraction", "multiplication", "division"];
+        const types = ["addition", "subtraction", "multiplication", "division"];
         operation = types[Math.floor(Math.random() * types.length)];
     }
 
@@ -35,7 +35,7 @@ function generateQuestion() {
             else if (difficulty === "hard") generateAdditionHardQuestion();
             break
          case "substraction":
-            generateSubstractionQuestion();
+            generateSubtractionQuestion();
             break;
         case "multiplication":
             generateMultiplicationQuestion();
