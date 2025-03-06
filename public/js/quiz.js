@@ -96,7 +96,6 @@ function generateDivisionHardQuestion() {
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
 
-
 function generateQuestion() {
     if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
 
