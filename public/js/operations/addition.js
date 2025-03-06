@@ -3,7 +3,6 @@ export function generateAdditionEasyQuestion() {
     let num2 = Math.floor(Math.random() * 11);
     let correctAnswer = num1 + num2;
     document.getElementById("question").textContent = `${num1} + ${num2}`;
-    return correctAnswer;
 }
 
 export function generateAdditionMediumQuestion() {
@@ -11,7 +10,6 @@ export function generateAdditionMediumQuestion() {
     let num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
     let correctAnswer = num1 + num2;
     document.getElementById("question").textContent = `${num1} + ${num2}`;
-    return correctAnswer;
 }
 
 export function generateAdditionHardQuestion() {
@@ -19,5 +17,4 @@ export function generateAdditionHardQuestion() {
     let num2 = Math.floor(Math.random() * 101);
     let correctAnswer = num1 + num2;
     document.getElementById("question").textContent = `${num1} + ${num2}`;
-    return correctAnswer;
 }
