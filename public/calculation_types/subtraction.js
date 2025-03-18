@@ -1,6 +1,6 @@
 export function generateSubtractionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 10); // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 10);
+    const num1 = Math.floor(Math.random() * 10); // Random number between 0 and 9
+    const num2 = Math.floor(Math.random() * 10);
     return {
         question: `${num1} - ${num2}`,
         correctAnswer: num1 - num2
@@ -8,8 +8,8 @@ export function generateSubtractionEasyQuestion() {
 }
 
 export function generateSubtractionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
-    num2 = Math.floor(Math.random() * 10);
+    const num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
+    const num2 = Math.floor(Math.random() * 10);
     return {
         question: `${num1} - ${num2}`,
         correctAnswer: num1 - num2
@@ -17,8 +17,8 @@ export function generateSubtractionMediumQuestion() {
 }
 
 export function generateSubtractionHardQuestion() {
-    num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
-    num2 = Math.floor(Math.random() * 100);
+    const num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
+    const num2 = Math.floor(Math.random() * 100);
     return {
         question: `${num1} - ${num2}`,
         correctAnswer: num1 - num2
