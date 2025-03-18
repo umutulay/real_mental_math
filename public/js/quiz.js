@@ -20,30 +20,41 @@ function getQuestionType() {
     return localStorage.getItem("quizType") || "addition"; // Default to addition
 }
 
-function generateAdditionQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
+function getDifficulty() {
+    return localStorage.getItem("difficulty") || "easy"; // Default to easy
 }
 
-function generateSubstractionQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateMultiplicationQuestion() {
-    num1 = Math.floor(Math.random() * 10) + 1;
-    num2 = Math.floor(Math.random() * 10) + 1;
+function generateMultiplicationEasyQuestion() {
+    num1 = Math.floor(Math.random() * 10); // Random number between 0 and 9
+    num2 = Math.floor(Math.random() * 10); // Random number between 0 and 9
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
 
-function generateDivisionQuestion() {
-    num2 = Math.floor(Math.random() * 10) + 1;
-    num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
+function generateMultiplicationMediumQuestion() {
+    num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
+    num2 = Math.floor(Math.random() * 10); // Random number between 0 and 9
+    correctAnswer = num1 * num2;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
+}
+
+function generateMultiplicationHardQuestion() {
+    num1 = Math.floor(Math.random() * 100); // Random number between 0 and 99
+    num2 = Math.floor(Math.random() * 100); // Random number between 0 and 99
+    correctAnswer = num1 * num2;
+    document.getElementById("question").textContent = `${num1} x ${num2}`;
+}
+
+function generateDivisionEasyQuestion() {
+    num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 9
+    num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Random number between 1 and 9
+    correctAnswer = num1 / num2;
+    document.getElementById("question").textContent = `${num1} / ${num2}`;
+}
+
+function generateDivisionMediumQuestion() {
+    num2 = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 99
+    num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
     correctAnswer = num1 / num2;
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
@@ -58,7 +69,8 @@ function generateDivisionHardQuestion() {
 function generateQuestion() {
     if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
 
-    operation = getQuestionType();
+    let operation = getQuestionType();
+    const difficulty = getDifficulty();
 
     if (operation === "mixed") {
         const types = ["addition", "subtraction", "multiplication", "division"];
@@ -67,10 +79,35 @@ function generateQuestion() {
 
     switch (operation) {
         case "addition":
-            generateAdditionQuestion();
+            if (difficulty === "easy") {
+                const { question, correctAnswer: answer } = generateAdditionEasyQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "medium") {
+                const { question, correctAnswer: answer } = generateAdditionMediumQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "hard") {
+                const { question, correctAnswer: answer } = generateAdditionHardQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            }
             break;
-        case "substraction":
-            generateSubstractionQuestion();
+
+        case "subtraction":
+            if (difficulty === "easy") {
+                const { question, correctAnswer: answer } = generateSubtractionEasyQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "medium") {
+                const { question, correctAnswer: answer } = generateSubtractionMediumQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "hard") {
+                const { question, correctAnswer: answer } = generateSubtractionHardQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            }
             break;
 
         case "multiplication":
