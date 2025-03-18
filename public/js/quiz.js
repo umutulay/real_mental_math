@@ -2,13 +2,13 @@ import {
     generateAdditionEasyQuestion,
     generateAdditionMediumQuestion,
     generateAdditionHardQuestion
-} from '../calculation_types/addition.js'
+} from '/calculation_types/addition.js'
 
 import {
     generateSubtractionEasyQuestion,
     generateSubtractionMediumQuestion,
     generateSubtractionHardQuestion
-} from '../calculation_types/subtraction.js'
+} from '/calculation_types/subtraction.js'
 
 let num1, num2, correctAnswer;
 let timer, quizStartTime;
