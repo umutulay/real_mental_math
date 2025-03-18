@@ -186,3 +186,11 @@ function mainPage() {
 
 window.mainPage = mainPage; // Expose function to HTML
 window.endQuiz = endQuiz; // Expose function to HTML
+
+export {
+    generateQuestion,
+    checkAnswer,
+    startTimer,
+    endQuiz,
+    mainPage
+} // Expose functions to other modules
