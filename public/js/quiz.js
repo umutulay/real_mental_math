@@ -4,7 +4,11 @@ import {
     generateAdditionHardQuestion
 } from '../calculation_types/addition.js'
 
-
+import {
+    generateSubtractionEasyQuestion,
+    generateSubtractionMediumQuestion,
+    generateSubtractionHardQuestion
+} from '../calculation_types/subtraction.js'
 
 let num1, num2, correctAnswer;
 let timer, quizStartTime;
@@ -18,27 +22,6 @@ function getQuestionType() {
 
 function getDifficulty() {
     return localStorage.getItem("difficulty") || "easy"; // Default to easy
-}
-
-function generateSubtractionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    num2 = Math.floor(Math.random() * 11);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateSubtractionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 11);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateSubtractionHardQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 101);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
 }
 
 function generateMultiplicationEasyQuestion() {
@@ -112,10 +95,21 @@ function generateQuestion() {
             break;
 
         case "subtraction":
-            if (difficulty === "easy") generateSubtractionEasyQuestion();
-            else if (difficulty === "medium") generateSubtractionMediumQuestion();
-            else if (difficulty === "hard") generateSubtractionHardQuestion();
+            if (difficulty === "easy") {
+                const { question, correctAnswer: answer } = generateSubtractionEasyQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "medium") {
+                const { question, correctAnswer: answer } = generateSubtractionMediumQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            } else if (difficulty === "hard") {
+                const { question, correctAnswer: answer } = generateSubtractionHardQuestion();
+                document.getElementById("question").textContent = question;
+                correctAnswer = answer;
+            }
             break;
+
         case "multiplication":
             if (difficulty === "easy") generateMultiplicationEasyQuestion();
             else if (difficulty === "medium") generateMultiplicationMediumQuestion();
