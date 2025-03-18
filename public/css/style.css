@@ -53,6 +53,18 @@ p#timer {
   padding: 10px;
 }
 
+p#score {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+p#time {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
 label {
     font-size: 20px; /* Increase text size */
     font-weight: bold; /* Make it bold */
