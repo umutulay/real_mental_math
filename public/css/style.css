@@ -20,13 +20,16 @@ header {
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 30px;  /* Increase padding */
+    font-size: 20px;     /* Increase font size */
     background: #28a745;
     color: white;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    width: 200px;        /* Optional: Set a fixed width */
+    height: 60px;        /* Optional: Set a fixed height */
+    border-radius: 8px;  /* Optional: Rounded corners for a smoother look */
 }
 
 button:hover {
@@ -42,4 +45,18 @@ p#question {
   font-size: 24px;
   line-height: 1.5;
   padding: 10px;
+}
+
+label {
+    font-size: 20px; /* Increase text size */
+    font-weight: bold; /* Make it bold */
+    margin-bottom: 10px; /* Adds space below labels */
+}
+
+select {
+    font-size: 15px; /* Increase text size */
+    padding: 5px; /* Make the dropdown bigger */
+    width: 120px; /* Adjust width */
+    border-radius: 5px; /* Add rounded corners */
+    border: 1px solid #333; /* Optional: Add a border */
 }
