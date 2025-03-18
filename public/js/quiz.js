@@ -17,27 +17,6 @@ function getDifficulty() {
     return localStorage.getItem("difficulty") || "easy"; // Default to easy
 }
 
-// function generateAdditionEasyQuestion() {
-//     num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-//     num2 = Math.floor(Math.random() * 11);
-//     correctAnswer = num1 + num2;
-//     document.getElementById("question").textContent = `${num1} + ${num2}`;
-// }
-
-// function generateAdditionMediumQuestion() {
-//     num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-//     num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-//     correctAnswer = num1 + num2;
-//     document.getElementById("question").textContent = `${num1} + ${num2}`;
-// }
-
-// function generateAdditionHardQuestion() {
-//     num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-//     num2 = Math.floor(Math.random() * 101);
-//     correctAnswer = num1 + num2;
-//     document.getElementById("question").textContent = `${num1} + ${num2}`;
-// }
-
 function generateSubtractionEasyQuestion() {
     num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
     num2 = Math.floor(Math.random() * 11);
