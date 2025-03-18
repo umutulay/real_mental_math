@@ -1,3 +1,15 @@
+import {
+    generateAdditionEasyQuestion,
+    generateAdditionMediumQuestion,
+    generateAdditionHardQuestion
+} from '../calculation_types/addition.js'
+
+import {
+    generateSubtractionEasyQuestion,
+    generateSubtractionMediumQuestion,
+    generateSubtractionHardQuestion
+} from '../calculation_types/subtraction.js'
+
 let num1, num2, correctAnswer;
 let timer, quizStartTime;
 const timeLimit = 10; // Time limit per question in seconds
@@ -8,90 +20,37 @@ function getQuestionType() {
     return localStorage.getItem("quizType") || "addition"; // Default to addition
 }
 
-function getDifficulty() {
-    return localStorage.getItem("difficulty") || "easy"; // Default to easy
-}
-
-function generateAdditionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    num2 = Math.floor(Math.random() * 11);
+function generateAdditionQuestion() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
     correctAnswer = num1 + num2;
     document.getElementById("question").textContent = `${num1} + ${num2}`;
 }
 
-function generateAdditionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
-}
-
-function generateAdditionHardQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 101);
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
-}
-
-function generateSubtractionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    num2 = Math.floor(Math.random() * 11);
+function generateSubstractionQuestion() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
     correctAnswer = num1 - num2;
     document.getElementById("question").textContent = `${num1} - ${num2}`;
 }
 
-function generateSubtractionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 11);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateSubtractionHardQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 101);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateMultiplicationEasyQuestion() {
-    num1 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
+function generateMultiplicationQuestion() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
     correctAnswer = num1 * num2;
     document.getElementById("question").textContent = `${num1} x ${num2}`;
 }
 
-function generateMultiplicationMediumQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 11); // Random number between 0 and 10
-    correctAnswer = num1 * num2;
-    document.getElementById("question").textContent = `${num1} x ${num2}`;
-}
-
-function generateMultiplicationHardQuestion() {
-    num1 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    num2 = Math.floor(Math.random() * 101); // Random number between 0 and 100
-    correctAnswer = num1 * num2;
-    document.getElementById("question").textContent = `${num1} x ${num2}`;
-}
-
-function generateDivisionEasyQuestion() {
-    num2 = Math.floor(Math.random() * 11) + 1; // Random number between 1 and 10
-    num1 = num2 * (Math.floor(Math.random() * 11) + 1); // Random number between 1 and 10
-    correctAnswer = num1 / num2;
-    document.getElementById("question").textContent = `${num1} / ${num2}`;
-}
-
-function generateDivisionMediumQuestion() {
-    num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
-    num1 = num2 * (Math.floor(Math.random() * 30) + 1); // Random number between 1 and 30
+function generateDivisionQuestion() {
+    num2 = Math.floor(Math.random() * 10) + 1;
+    num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
     correctAnswer = num1 / num2;
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
 
 function generateDivisionHardQuestion() {
-    num2 = Math.floor(Math.random() * 101) + 1; // Random number between 1 and 100
-    num1 = num2 * (Math.floor(Math.random() * 101) + 1); // Random number between 1 and 101
+    num2 = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 99
+    num1 = num2 * (Math.floor(Math.random() * 100) + 1); // Random number between 1 and 99
     correctAnswer = num1 / num2;
     document.getElementById("question").textContent = `${num1} / ${num2}`;
 }
@@ -100,24 +59,20 @@ function generateQuestion() {
     if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
 
     operation = getQuestionType();
-    difficulty = getDifficulty();
 
     if (operation === "mixed") {
-        const types = ["addition", "substraction", "multiplication", "division"];
+        const types = ["addition", "subtraction", "multiplication", "division"];
         operation = types[Math.floor(Math.random() * types.length)];
     }
 
     switch (operation) {
         case "addition":
-            if (difficulty === "easy") generateAdditionEasyQuestion();
-            else if (difficulty === "medium") generateAdditionMediumQuestion();
-            else if (difficulty === "hard") generateAdditionHardQuestion();
+            generateAdditionQuestion();
             break;
-        case "subtraction":
-            if (difficulty === "easy") generateSubtractionEasyQuestion();
-            else if (difficulty === "medium") generateSubtractionMediumQuestion();
-            else if (difficulty === "hard") generateSubtractionHardQuestion();
+        case "substraction":
+            generateSubstractionQuestion();
             break;
+
         case "multiplication":
             if (difficulty === "easy") generateMultiplicationEasyQuestion();
             else if (difficulty === "medium") generateMultiplicationMediumQuestion();
@@ -191,3 +146,6 @@ window.onload = generateQuestion;
 function mainPage() {
     window.location.href = "/";
 }
+
+window.mainPage = mainPage; // Expose function to HTML
+window.endQuiz = endQuiz; // Expose function to HTML
