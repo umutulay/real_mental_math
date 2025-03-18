@@ -3,6 +3,9 @@ import {
     generateAdditionMediumQuestion,
     generateAdditionHardQuestion
 } from '../calculation_types/addition.js'
+
+
+
 let num1, num2, correctAnswer;
 let timer, quizStartTime;
 const timeLimit = 10; // Time limit per question in seconds
