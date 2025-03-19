@@ -1,4 +1,4 @@
-import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./addition.js";
+import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./addition.mjs";
 
 let correctAnswer;
 let timer, quizStartTime;
