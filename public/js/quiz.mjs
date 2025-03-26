@@ -30,26 +30,26 @@ function generateQuestion() {
 
     switch (operation) {
         case "addition":
-            if (difficulty === "easy") generateAdditionEasyQuestion();
-            else if (difficulty === "medium") generateAdditionMediumQuestion();
-            else if (difficulty === "hard") generateAdditionHardQuestion();
+            if (difficulty === "easy") correctAnswer = generateAdditionEasyQuestion();
+            else if (difficulty === "medium") correctAnswer = generateAdditionMediumQuestion();
+            else if (difficulty === "hard") correctAnswer = generateAdditionHardQuestion();
             break;
 
         case "subtraction":
-            if (difficulty === "easy") generateSubtractionEasyQuestion();
-            else if (difficulty === "medium") generateSubtractionMediumQuestion();
-            else if (difficulty === "hard") generateSubtractionHardQuestion();
+            if (difficulty === "easy") correctAnswer = generateSubtractionEasyQuestion();
+            else if (difficulty === "medium") correctAnswer = generateSubtractionMediumQuestion();
+            else if (difficulty === "hard") correctAnswer = generateSubtractionHardQuestion();
             break;
 
         case "multiplication":
-            if (difficulty === "easy") generateMultiplicationEasyQuestion();
-            else if (difficulty === "medium") generateMultiplicationMediumQuestion();
-            else if (difficulty === "hard") generateMultiplicationHardQuestion();
+            if (difficulty === "easy") correctAnswer = generateMultiplicationEasyQuestion();
+            else if (difficulty === "medium") correctAnswer = generateMultiplicationMediumQuestion();
+            else if (difficulty === "hard") correctAnswer = generateMultiplicationHardQuestion();
             break;
         case "division":
-            if (difficulty === "easy") generateDivisionEasyQuestion();
-            else if (difficulty === "medium") generateDivisionMediumQuestion();
-            else if (difficulty === "hard") generateDivisionHardQuestion();
+            if (difficulty === "easy") correctAnswer = generateDivisionEasyQuestion();
+            else if (difficulty === "medium") correctAnswer = generateDivisionMediumQuestion();
+            else if (difficulty === "hard") correctAnswer = generateDivisionHardQuestion();
             break;
     }
 
