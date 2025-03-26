@@ -1,4 +1,5 @@
 import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./addition.mjs";
+import { generateSubtractionEasyQuestion, generateSubtractionMediumQuestion, generateSubtractionHardQuestion } from "./subtraction.mjs";
 
 let correctAnswer;
 let timer, quizStartTime;
@@ -12,27 +13,6 @@ function getQuestionType() {
 
 function getDifficulty() {
     return localStorage.getItem("difficulty") || "easy"; // Default to easy
-}
-
-function generateSubtractionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 10);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 10);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateSubtractionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 10);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 100);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
-}
-
-function generateSubtractionHardQuestion() {
-    num1 = Math.floor(Math.random() * 100);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 100);
-    correctAnswer = num1 - num2;
-    document.getElementById("question").textContent = `${num1} - ${num2}`;
 }
 
 function generateMultiplicationEasyQuestion() {
@@ -126,8 +106,6 @@ function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
 
     if (userAnswer === correctAnswer) {
-        // document.getElementById("feedback").textContent = "✅ Correct!";
-        // document.getElementById("feedback").style.color = "green";
         correctAnswers++; // Increase correct answer count
         clearTimeout(timer); // Stop timer
         setTimeout(generateQuestion, 100); // Load new question after 100ms
@@ -175,3 +153,13 @@ function mainPage() {
     window.location.href = "/";
 }
 
+window.mainPage = mainPage; // Expose function to HTML
+window.endQuiz = endQuiz; // Expose function to HTML
+
+export {
+    generateQuestion,
+    checkAnswer,
+    startTimer,
+    endQuiz,
+    mainPage
+};
