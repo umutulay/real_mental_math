@@ -1,4 +1,6 @@
-let num1, num2, correctAnswer;
+import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./addition.mjs";
+
+let correctAnswer;
 let timer, quizStartTime;
 const timeLimit = 10; // Time limit per question in seconds
 let correctAnswers = 0;
@@ -10,27 +12,6 @@ function getQuestionType() {
 
 function getDifficulty() {
     return localStorage.getItem("difficulty") || "easy"; // Default to easy
-}
-
-function generateAdditionEasyQuestion() {
-    num1 = Math.floor(Math.random() * 10);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 10);
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
-}
-
-function generateAdditionMediumQuestion() {
-    num1 = Math.floor(Math.random() * 10);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 100);
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
-}
-
-function generateAdditionHardQuestion() {
-    num1 = Math.floor(Math.random() * 100);    // Random number between 0 and 9
-    num2 = Math.floor(Math.random() * 100);
-    correctAnswer = num1 + num2;
-    document.getElementById("question").textContent = `${num1} + ${num2}`;
 }
 
 function generateSubtractionEasyQuestion() {

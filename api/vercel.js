@@ -1,22 +1,27 @@
-const express = require("express");
-const path = require("path");
-const serverless = require("serverless-http");
+import express from "express";
+ import { join } from "path";
+ import { fileURLToPath } from "url"; // Import to resolve __dirname
+ import serverless from "serverless-http";
+ 
+ // Fix for __dirname in ES modules
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = join(__filename, '../'); // Get the directory name
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "../public"))); // Serve static files from public folder
+app.use(express.static(join(__dirname, "../public"))); 
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views", "index.html"));
+    res.sendFile(join(__dirname, "../views", "index.html"));
 });
 
 app.get("/quiz", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views", "quiz.html"));
+    res.sendFile(join(__dirname, "../views", "quiz.html"));
 });
 
 app.get("/results", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views", "results.html"));
+    res.sendFile(join(__dirname, "../views", "results.html"));
 });
 
-module.exports = app;
-module.exports.handler = serverless(app);
+export default app;
+export const handler = serverless(app);
