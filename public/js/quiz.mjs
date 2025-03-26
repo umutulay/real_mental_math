@@ -5,9 +5,13 @@ import { generateDivisionEasyQuestion, generateDivisionMediumQuestion, generateD
 
 let correctAnswer;
 let timer, quizStartTime;
-const timeLimit = 10; // Time limit per question in seconds
+const timeLimit = getTimeLimit();
 let correctAnswers = 0;
 let totalTimeSpent = 0;
+
+function getTimeLimit() {
+    return localStorage.getItem("timeLimit"); 
+}
 
 function getQuestionType() {
     return localStorage.getItem("quizType") || "addition"; // Default to addition
@@ -52,14 +56,14 @@ function generateQuestion() {
             else if (difficulty === "hard") correctAnswer = generateDivisionHardQuestion();
             break;
     }
-
     document.getElementById("answer").value = ""; // Clear input
     document.getElementById("feedback").textContent = ""; // Clear feedback
     document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
 
     document.getElementById("answer").focus(); // Auto-focus input field
-
     startTimer();
+
+
 }
 
 function checkAnswer() {

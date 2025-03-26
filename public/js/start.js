@@ -3,6 +3,8 @@ function startQuiz() {
     localStorage.setItem("quizType", selectedType); // Store the selection
     const selectedDiffi = document.getElementById("difficulty").value;
     localStorage.setItem("difficulty", selectedDiffi); // Store the selection    
+    const timeLimit = document.getElementById("time-limit").value;
+    localStorage.setItem("timeLimit", timeLimit); // Store
     window.location.href = "/quiz"; // Redirect to quiz page
 }
 
