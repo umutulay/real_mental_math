@@ -20,7 +20,6 @@ function generateQuestion() {
     startTimer();
 }
 
-
 function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
     if (userAnswer === correctAnswer) {
