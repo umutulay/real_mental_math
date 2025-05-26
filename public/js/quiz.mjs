@@ -1,7 +1,4 @@
-import { generateAdditionEasyQuestion, generateAdditionMediumQuestion, generateAdditionHardQuestion } from "./calculation_types/addition.mjs";
-import { generateSubtractionEasyQuestion, generateSubtractionMediumQuestion, generateSubtractionHardQuestion } from "./calculation_types/subtraction.mjs";
-import { generateMultiplicationEasyQuestion, generateMultiplicationMediumQuestion, generateMultiplicationHardQuestion } from "./calculation_types/multiplication.mjs";
-import { generateDivisionEasyQuestion, generateDivisionMediumQuestion, generateDivisionHardQuestion } from "./calculation_types/division.mjs";
+import { generateQuestion as getNewQuestion} from "./generate_question.mjs";
 
 let correctAnswer;
 let timer, quizStartTime;
@@ -13,62 +10,19 @@ function getTimeLimit() {
     return localStorage.getItem("timeLimit"); 
 }
 
-function getQuestionType() {
-    return localStorage.getItem("quizType") || "addition"; // Default to addition
-}
-
-function getDifficulty() {
-    return localStorage.getItem("difficulty") || "easy"; // Default to easy
-}
-
 function generateQuestion() {
     if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
-
-    let operation = getQuestionType();
-    const difficulty = getDifficulty();
-
-    if (operation === "mixed") {
-        const types = ["addition", "subtraction", "multiplication", "division"];
-        operation = types[Math.floor(Math.random() * types.length)];
-    }
-
-    switch (operation) {
-        case "addition":
-            if (difficulty === "easy") correctAnswer = generateAdditionEasyQuestion();
-            else if (difficulty === "medium") correctAnswer = generateAdditionMediumQuestion();
-            else if (difficulty === "hard") correctAnswer = generateAdditionHardQuestion();
-            break;
-
-        case "subtraction":
-            if (difficulty === "easy") correctAnswer = generateSubtractionEasyQuestion();
-            else if (difficulty === "medium") correctAnswer = generateSubtractionMediumQuestion();
-            else if (difficulty === "hard") correctAnswer = generateSubtractionHardQuestion();
-            break;
-
-        case "multiplication":
-            if (difficulty === "easy") correctAnswer = generateMultiplicationEasyQuestion();
-            else if (difficulty === "medium") correctAnswer = generateMultiplicationMediumQuestion();
-            else if (difficulty === "hard") correctAnswer = generateMultiplicationHardQuestion();
-            break;
-        case "division":
-            if (difficulty === "easy") correctAnswer = generateDivisionEasyQuestion();
-            else if (difficulty === "medium") correctAnswer = generateDivisionMediumQuestion();
-            else if (difficulty === "hard") correctAnswer = generateDivisionHardQuestion();
-            break;
-    }
+    correctAnswer = getNewQuestion(); // Call the function to generate a new question
     document.getElementById("answer").value = ""; // Clear input
     document.getElementById("feedback").textContent = ""; // Clear feedback
     document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
-
     document.getElementById("answer").focus(); // Auto-focus input field
     startTimer();
-
-
 }
+
 
 function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
-
     if (userAnswer === correctAnswer) {
         correctAnswers++; // Increase correct answer count
         clearTimeout(timer); // Stop timer
