@@ -28,6 +28,7 @@
             <option value="mixed">Mixed</option>
         </select>
         <br><br>
+
         <label for="difficulty">Choose the difficulty:</label>
         <select id="difficulty">
             <option value="easy">Easy</option>
@@ -35,15 +36,19 @@
             <option value="hard">Hard</option>
         </select>
         <br><br>
-        <label for="time-limit">Choose the time:</label>
-        <select id="time-limit">
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
+
+        <label for="timer-type">Choose the timer type:</label>
+        <select id="timer-type">
+            <option value="per-question">Per Question</option>
+            <option value="total-time" selected>Total Time</option>
         </select>
         <br><br>
+
+        <label for="time-limit">Choose the time:</label>
+        <select id="time-limit"></select>
+        <script src ="/js/dropdownTime.mjs"></script>
+        <br><br>
+        
         <button onclick="startQuiz()">Start Quiz</button>
 
         <p> <b>Easy</b> questions have <b>two integers</b> in the range <b>[0,9]</b> (except division)</p>

@@ -3,37 +3,52 @@ import { generateQuestion as getNewQuestion} from "./generate_question.mjs";
 let correctAnswer;
 let timer, quizStartTime;
 const timeLimit = getTimeLimit();
+const timerType = getTimerType();
 let correctAnswers = 0;
 let totalTimeSpent = 0;
+let totalTimerStarted = false;
 
 function getTimeLimit() {
     return localStorage.getItem("timeLimit"); 
 }
 
+function getTimerType() {
+    return localStorage.getItem("timerType"); 
+}
+
 function generateQuestion() {
-    if (!quizStartTime) quizStartTime = Date.now(); // Start tracking time on first question
-    correctAnswer = getNewQuestion(); // Call the function to generate a new question
-    document.getElementById("answer").value = ""; // Clear input
-    document.getElementById("feedback").textContent = ""; // Clear feedback
-    document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
-    document.getElementById("answer").focus(); // Auto-focus input field
-    startTimer();
+    if (!quizStartTime) quizStartTime = Date.now();
+    correctAnswer = getNewQuestion();
+    document.getElementById("answer").value = "";
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("answer").focus();
+
+    if (timerType === "per-question") {
+        document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
+        startTimer(); // restart per-question timer
+    } else if (timerType === "total-time" && !totalTimerStarted) {
+        document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
+        startTimer(); // start total-time timer once
+        totalTimerStarted = true;
+    }
 }
 
 
 function checkAnswer() {
     const userAnswer = parseFloat(document.getElementById("answer").value);
     if (userAnswer === correctAnswer) {
-        correctAnswers++; // Increase correct answer count
-        clearTimeout(timer); // Stop timer
-        setTimeout(generateQuestion, 100); // Load new question after 100ms
+        correctAnswers++;
+        if (timerType === "per-question") {
+            clearInterval(timer);
+        }
+        setTimeout(generateQuestion, 100);
     }
 }
+
 
 function startTimer() {
     let timeLeft = timeLimit;
     clearInterval(timer);
-
     timer = setInterval(() => {
         if (timeLeft > 0) {
             timeLeft--;
@@ -42,10 +57,15 @@ function startTimer() {
             clearInterval(timer);
             document.getElementById("feedback").textContent = "⏳ Time's up! New question.";
             document.getElementById("feedback").style.color = "orange";
-            setTimeout(generateQuestion, 1000);
+            if (timerType === "per-question") {
+                setTimeout(generateQuestion, 1000);
+            } else if (timerType === "total-time") {
+                endQuiz();
+            }
         }
     }, 1000);
 }
+
 
 function endQuiz() {
     clearInterval(timer);
