@@ -80,3 +80,15 @@ select {
     border-radius: 5px; /* Add rounded corners */
     border: 1px solid #333; /* Optional: Add a border */
 }
+
+p#final-score-text {
+  font-size: 30px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+p#final-time-text {
+  font-size: 30px;
+  line-height: 1.5;
+  padding: 10px;
+}

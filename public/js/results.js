@@ -1,8 +1,8 @@
 const correctAnswers = localStorage.getItem("correctAnswers") || 0;
 const totalTimeSpent = localStorage.getItem("totalTimeSpent") || 0;
 
-document.getElementById("score").textContent = `Correct Answers: ${correctAnswers}`;
-document.getElementById("time").textContent = `Total Time Spent: ${totalTimeSpent} seconds`;
+document.getElementById("final-score").textContent = `${correctAnswers}`;
+document.getElementById("final-time").textContent = `${totalTimeSpent}`;
 
 function restartQuiz() {
     localStorage.removeItem("correctAnswers");
