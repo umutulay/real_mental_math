@@ -1,103 +1,77 @@
-import { generateQuestion as getNewQuestion} from "./generate_question.mjs";
-
-let correctAnswer;
-let timer, quizStartTime;
-const timeLimit = getTimeLimit();
-const timerType = getTimerType();
-let correctAnswers = 0;
-let totalTimeSpent = 0;
-let totalTimerStarted = false;
-
-function getTimeLimit() {
-    return localStorage.getItem("timeLimit"); 
+import { generateQuestion } from './generate_question.mjs';
+const mode = localStorage.getItem('timerType') || 'total-time';
+const limit = Number(localStorage.getItem('timeLimit')) || 30;
+const started = Date.now();
+let deadline = started + limit * 1000;
+let answer, correct = 0, attempts = 0, streak = 0, bestStreak = 0, locked = false, ended = false, nextQuestion;
+const input = document.getElementById('answer');
+const feedback = document.getElementById('feedback');
+document.getElementById('session-label').textContent = `${localStorage.getItem('quizType') || 'addition'} · ${localStorage.getItem('difficulty') || 'easy'}`.toUpperCase();
+function newQuestion() {
+  if (ended) return;
+  locked = false;
+  answer = generateQuestion();
+  input.value = '';
+  input.disabled = false;
+  document.getElementById('submit-answer').disabled = false;
+  feedback.textContent = '';
+  input.focus();
+  if (mode === 'per-question') deadline = Date.now() + limit * 1000;
 }
-
-function getTimerType() {
-    return localStorage.getItem("timerType"); 
+function finish() {
+  if (ended) return;
+  ended = true;
+  clearInterval(timer);
+  clearTimeout(nextQuestion);
+  const result = {correct,attempts,bestStreak,seconds:Math.max(1,Math.round((Date.now()-started)/1000)),type:localStorage.getItem('quizType') || 'addition',difficulty:localStorage.getItem('difficulty') || 'easy',mode,limit};
+  const key = `personalBest:${result.type}:${result.difficulty}:${mode}:${limit}`;
+  const previousBest = Number(localStorage.getItem(key)) || 0;
+  result.personalBest = Math.max(previousBest,correct);
+  result.newBest = correct > previousBest;
+  if (mode !== 'untimed') localStorage.setItem(key,result.personalBest);
+  localStorage.setItem('sessionResult',JSON.stringify(result));
+  window.location.href = '/results';
 }
-
-function generateQuestion() {
-    if (!quizStartTime) quizStartTime = Date.now();
-    correctAnswer = getNewQuestion();
-    document.getElementById("answer").value = "";
-    document.getElementById("feedback").textContent = "";
-    document.getElementById("answer").focus();
-
-    if (timerType === "per-question") {
-        document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
-        startTimer(); // restart per-question timer
-    } else if (timerType === "total-time" && !totalTimerStarted) {
-        document.getElementById("timer").textContent = `Time left: ${timeLimit}s`;
-        startTimer(); // start total-time timer once
-        totalTimerStarted = true;
-    }
+function resolveQuestion(isCorrect,timedOut=false) {
+  if (locked || ended) return;
+  locked = true;
+  attempts++;
+  if (isCorrect) {correct++;streak++;bestStreak=Math.max(bestStreak,streak);} else streak=0;
+  document.getElementById('score').textContent = correct;
+  document.getElementById('streak').textContent = bestStreak;
+  feedback.className = isCorrect ? 'success' : 'incorrect';
+  feedback.textContent = isCorrect ? '✓ Correct. Keep going!' : `${timedOut ? 'Time’s up.' : 'Not quite.'} The answer is ${answer}.`;
+  input.disabled = true;
+  document.getElementById('submit-answer').disabled = true;
+  nextQuestion = setTimeout(newQuestion,isCorrect ? 450 : 1500);
 }
-
-
-function checkAnswer() {
-    const userAnswer = parseFloat(document.getElementById("answer").value);
-    if (userAnswer === correctAnswer) {
-        correctAnswers++;
-        if (timerType === "per-question") {
-            clearInterval(timer);
-        }
-        setTimeout(generateQuestion, 100);
-    }
+function checkAnswer(automatic = false) {
+  if (locked || ended) return;
+  if (input.value.trim() === '') return;
+  if (mode !== 'untimed' && Date.now() >= deadline) {
+    if (mode === 'total-time') finish(); else resolveQuestion(false,true);
+    return;
+  }
+  const isCorrect = Number(input.value) === answer;
+  if (automatic && !isCorrect) return;
+  resolveQuestion(isCorrect);
 }
-
-
-function startTimer() {
-    let timeLeft = timeLimit;
-    clearInterval(timer);
-    timer = setInterval(() => {
-        if (timeLeft > 0) {
-            timeLeft--;
-            document.getElementById("timer").textContent = `Time left: ${timeLeft}s`;
-        } else {
-            clearInterval(timer);
-            document.getElementById("feedback").textContent = "⏳ Time's up! New question.";
-            document.getElementById("feedback").style.color = "orange";
-            if (timerType === "per-question") {
-                setTimeout(generateQuestion, 1000);
-            } else if (timerType === "total-time") {
-                endQuiz();
-            }
-        }
-    }, 1000);
+input.addEventListener('input', () => checkAnswer(true));
+document.getElementById('answer-form').addEventListener('submit',event => {
+  event.preventDefault();
+  checkAnswer();
+});
+document.getElementById('end-quiz').addEventListener('click',finish);
+function updateTimer() {
+  const remaining = Math.max(0,Math.ceil((deadline-Date.now())/1000));
+  document.getElementById('timer').textContent = mode === 'untimed' ? '∞' : `${remaining}s`;
+  const progress = document.getElementById('time-progress');
+  progress.hidden = mode === 'untimed';
+  progress.value = remaining / limit * 100;
+  progress.classList.toggle('urgent',remaining <= 5);
+  if (mode === 'total-time' && Date.now() >= deadline) finish();
+  if (mode === 'per-question' && Date.now() >= deadline && !locked) resolveQuestion(false,true);
 }
-
-
-function endQuiz() {
-    clearInterval(timer);
-
-    // Calculate total time spent
-    totalTimeSpent = Math.floor((Date.now() - quizStartTime) / 1000); // Convert ms to seconds
-
-    // Store stats in localStorage
-    localStorage.setItem("correctAnswers", correctAnswers);
-    localStorage.setItem("totalTimeSpent", totalTimeSpent);
-
-    // alert("Quiz Ended!");
-    window.location.href = "/results"; // Redirect to results page
-}
-
-// Listen for changes in input field (checks answer as user types)
-document.getElementById("answer").addEventListener("input", checkAnswer);
-
-// Initialize first question on page load
-window.onload = generateQuestion;
-
-function mainPage() {
-    window.location.href = "/";
-}
-
-window.mainPage = mainPage; // Expose function to HTML
-window.endQuiz = endQuiz; // Expose function to HTML
-
-export {
-    generateQuestion,
-    checkAnswer,
-    startTimer,
-    endQuiz,
-    mainPage
-};
+newQuestion();
+const timer = setInterval(updateTimer,100);
+updateTimer();
