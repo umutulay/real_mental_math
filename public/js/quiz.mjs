@@ -12,10 +12,9 @@ function newQuestion() {
   locked = false;
   answer = generateQuestion();
   input.value = '';
-  input.disabled = false;
   document.getElementById('submit-answer').disabled = false;
   feedback.textContent = '';
-  input.focus();
+  input.focus({preventScroll: true});
   if (mode === 'per-question') deadline = Date.now() + limit * 1000;
 }
 function finish() {
@@ -41,7 +40,9 @@ function resolveQuestion(isCorrect,timedOut=false) {
   document.getElementById('streak').textContent = bestStreak;
   feedback.className = isCorrect ? 'success' : 'incorrect';
   feedback.textContent = isCorrect ? '✓ Correct. Keep going!' : `${timedOut ? 'Time’s up.' : 'Not quite.'} The answer is ${answer}.`;
-  input.disabled = true;
+  // Keep the input focused and editable so mobile keyboards stay open.
+  // The lock below prevents edits during the brief feedback interval.
+  input.focus({preventScroll: true});
   document.getElementById('submit-answer').disabled = true;
   nextQuestion = setTimeout(newQuestion,isCorrect ? 450 : 1500);
 }
@@ -57,6 +58,13 @@ function checkAnswer(automatic = false) {
   resolveQuestion(isCorrect);
 }
 input.addEventListener('input', () => checkAnswer(true));
+input.addEventListener('beforeinput', event => {
+  if (locked || ended) event.preventDefault();
+});
+document.getElementById('submit-answer').addEventListener('pointerdown', event => {
+  // Clicking Submit should not move focus away from the answer field.
+  event.preventDefault();
+});
 document.getElementById('answer-form').addEventListener('submit',event => {
   event.preventDefault();
   checkAnswer();
