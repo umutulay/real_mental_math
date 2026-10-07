@@ -9,6 +9,14 @@ const __dirname = join(__filename, '../'); // Get the directory name
 
 const app = express();
 
+// Keep shared links and search indexing on the preferred public address.
+app.use((req, res, next) => {
+    if (["mathtraining.xyz", "www.mathtraining.xyz"].includes(req.hostname.toLowerCase())) {
+        return res.redirect(308, `https://mentalmath-phi.vercel.app${req.originalUrl}`);
+    }
+    next();
+});
+
 app.use(express.static(join(__dirname, "../public"))); 
 
 app.get("/", (req, res) => {
