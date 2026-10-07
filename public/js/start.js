@@ -6,8 +6,11 @@ for (const [element, key] of [[type, 'quizType'], [difficulty, 'difficulty'], [m
   const saved = localStorage.getItem(key);
   if ([...element.options].some(option => option.value === saved)) element.value = saved;
 }
+// Topic pages always start with their relevant operation and practice mode.
+if (document.body.dataset.operation) type.value = document.body.dataset.operation;
+if (document.body.dataset.practiceMode) mode.value = document.body.dataset.practiceMode;
 function updateDuration() {
-  const previous = duration.value || localStorage.getItem('timeLimit');
+  const previous = duration.value || document.body.dataset.duration || localStorage.getItem('timeLimit');
   const values = mode.value === 'per-question' ? [5,10,15,20,25] : [25,30,35,40,50,60];
   duration.replaceChildren(...values.map(value => new Option(`${value} seconds`, value)));
   if (values.includes(Number(previous))) duration.value = previous;

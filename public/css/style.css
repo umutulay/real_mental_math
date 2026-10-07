@@ -19,6 +19,37 @@ body{
   color:#284f3c;
   text-decoration:none;
   letter-spacing:-1px}
+.practice-guide{
+  margin-top:34px;
+  line-height:1.75;
+  color:#4c6153;
+}
+.practice-guide h2{
+  margin:28px 0 12px;
+  color:#20382f;
+}
+.practice-guide p,.practice-guide li{
+  font-size:15px;
+}
+.practice-links{
+  margin-top:34px;
+}
+.practice-links div{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+.practice-links a{
+  display:block;
+  padding:16px;
+  background:#edf2e7;
+  border-radius:9px;
+  text-decoration:none;
+  font-size:14px;
+}
+.practice-links a:hover{
+  background:#e1eada;
+}
 .brand span{
   font-weight:400}
 header{

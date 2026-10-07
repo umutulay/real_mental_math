@@ -15,6 +15,12 @@ app.get("/", (req, res) => {
     res.sendFile(join(__dirname, "../views", "index.html"));
 });
 
+for (const page of ["addition-practice", "subtraction-practice", "multiplication-practice", "mental-math-test"]) {
+    app.get(`/${page}`, (req, res) => {
+        res.sendFile(join(__dirname, "../views", `${page}.html`));
+    });
+}
+
 app.get("/quiz", (req, res) => {
     res.sendFile(join(__dirname, "../views", "quiz.html"));
 });
