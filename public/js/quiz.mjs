@@ -28,6 +28,7 @@ function finish() {
   result.newBest = correct > previousBest;
   if (mode !== 'untimed') localStorage.setItem(key,result.personalBest);
   localStorage.setItem('sessionResult',JSON.stringify(result));
+  sessionStorage.setItem('pendingQuizComplete', JSON.stringify(result));
   window.location.href = '/results';
 }
 function resolveQuestion(isCorrect,timedOut=false) {
@@ -74,5 +75,11 @@ function updateTimer() {
   if (mode === 'per-question' && Date.now() >= deadline && !locked) resolveQuestion(false,true);
 }
 newQuestion();
+window.gtag?.('event', 'quiz_start', {
+  operation: localStorage.getItem('quizType') || 'addition',
+  difficulty: localStorage.getItem('difficulty') || 'easy',
+  practice_mode: mode,
+  time_limit_seconds: mode === 'untimed' ? 0 : limit
+});
 const timer = setInterval(updateTimer,100);
 updateTimer();

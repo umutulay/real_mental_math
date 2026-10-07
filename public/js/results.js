@@ -1,4 +1,19 @@
 const result = JSON.parse(localStorage.getItem('sessionResult') || 'null');
+// Only a newly finished session emits this event; refreshing results does not.
+const completed = JSON.parse(sessionStorage.getItem('pendingQuizComplete') || 'null');
+if (completed) {
+  sessionStorage.removeItem('pendingQuizComplete');
+  window.gtag?.('event', 'quiz_complete', {
+    operation: completed.type,
+    difficulty: completed.difficulty,
+    practice_mode: completed.mode,
+    time_limit_seconds: completed.mode === 'untimed' ? 0 : completed.limit,
+    correct_answers: completed.correct,
+    questions_answered: completed.attempts,
+    duration_seconds: completed.seconds,
+    best_streak: completed.bestStreak
+  });
+}
 if (result) {
   document.getElementById('final-score').textContent = result.correct;
   document.getElementById('result-context').textContent = `${result.type} · ${result.difficulty} · ${result.attempts} answered`;
